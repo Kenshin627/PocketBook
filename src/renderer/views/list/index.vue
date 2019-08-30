@@ -6,7 +6,7 @@
           {{scope.$index}}
         </template>
       </el-table-column>
-      <el-table-column label="描述">
+      <el-table-column label="明细">
         <template slot-scope="scope">
           {{scope.row.title}}
         </template>
