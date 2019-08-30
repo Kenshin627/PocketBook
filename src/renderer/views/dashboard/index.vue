@@ -146,7 +146,7 @@ export default {
     }
     .card-panel-icon {
       float: left;
-      font-size: 48px;
+      font-size: 50px;
     }
     .card-panel-description {
       float: right;
