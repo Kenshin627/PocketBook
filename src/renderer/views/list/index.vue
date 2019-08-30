@@ -1,7 +1,16 @@
 <template>
   <div class="app-container">
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" size='small' stripe fit highlight-current-row>
-      <el-table-column align="center" label='类别' width="95">
+    <el-table 
+    :data="list" 
+    v-loading.body="listLoading" 
+    element-loading-text="Loading" 
+    size='small' 
+    stripe fit highlight-current-row 
+    :row-class-name="tableRowClassName"
+    :default-sort = "{prop: 'date', order: 'descending'}"
+    >
+      <el-table-column type="selection"></el-table-column>
+      <el-table-column align="center" label='类别' width="195">
         <template slot-scope="scope">
           {{scope.$index}}
         </template>
@@ -11,12 +20,12 @@
           {{scope.row.title}}
         </template>
       </el-table-column>
-      <el-table-column label="金额" width="110" align="center">
+      <el-table-column label="金额" width="110" align="center" sortable>
         <template slot-scope="scope">
           <span>{{scope.row.author}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="日期" width="110" align="center">
+      <el-table-column label="日期" width="110" align="center" sortable>
         <template slot-scope="scope">
           {{scope.row.pageviews}}
         </template>
@@ -55,7 +64,23 @@ export default {
         this.list = response.data.items
         this.listLoading = false
       })
+    },
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2 === 0) {
+        return 'warning-row'
+      } else {
+        return 'success-row'
+      }
     }
   }
 }
 </script>
+<style>
+  .el-table .warning-row {
+    background: rgb(235, 217, 182);
+  }
+
+  .el-table .success-row {
+    background: #194203;
+  }
+</style>

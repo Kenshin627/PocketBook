@@ -24,10 +24,12 @@
       </el-form-item>
       <el-form-item label="描述">
         <el-input type="textarea" v-model="form.desc" rows="4"></el-input>
+      </el-form-item><el-form-item label="操作">
+       
       </el-form-item>
       <el-form-item>
-        <el-button round type="success" @click="onSubmit"><svg-icon icon-class="today" ></svg-icon>记一笔</el-button>
-        <el-button round type="info" @click="onCancel"><svg-icon icon-class="cancel"></svg-icon> 取消</el-button>
+        <el-button round type="success" @click="onSubmit" size="small"><svg-icon icon-class="today" ></svg-icon>记一笔</el-button>
+        <el-button round type="info" @click="onCancel" size="small"><svg-icon icon-class="cancel"></svg-icon> 取消</el-button>
       </el-form-item>
     </el-form>
   </div>
