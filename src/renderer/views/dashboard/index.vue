@@ -55,7 +55,11 @@
     </el-col>
   </el-row>
   <el-row>
-    
+    <el-col>
+      <div id='chart'>
+
+      </div>
+    </el-col>
   </el-row>
   <el-row :gutter="32">
       <el-col :xs="24" :sm="24" :lg="8">
@@ -183,5 +187,11 @@ export default {
       float: none !important;
     }
   }
+}
+#chart{
+  width: 100%;
+  height: 280px;
+  border:1px solid #ccc;
+  box-shadow: 4px 4px 12px 0px #9c9797;
 }
 </style>
