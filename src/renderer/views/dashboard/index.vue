@@ -55,16 +55,11 @@
     </el-col>
   </el-row>
   <el-row>
-    <el-col>
-      <div id='chart'>
-
-      </div>
-    </el-col>
   </el-row>
   <el-row :gutter="32">
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <line-chart />
+          <line-chart :className="chartClass" v-bind:chartData="chartData"/>
         </div>
       </el-col>
     </el-row>
@@ -74,18 +69,25 @@
 <script>
 import { mapGetters } from 'vuex'
 import CountTo from 'vue-count-to'
-// import LineChart from './components/echart/LineChart'
+import LineChart from '@/components/echart/LineChart'
 
 export default {
   name: 'dashboard',
   components: {
-    CountTo
+    CountTo,
+    LineChart
   },
   computed: {
     ...mapGetters([
       'name',
       'roles'
     ])
+  },
+  data() {
+    return {
+      chartData: { 'expectedData': [1, 2, 3, 4, 5], 'actualData': [2, 3, 4, 5, 6] },
+      chartClass: 'chart'
+    }
   }
 }
 </script>
@@ -188,7 +190,7 @@ export default {
     }
   }
 }
-#chart{
+.chart{
   width: 100%;
   height: 280px;
   border:1px solid #ccc;
