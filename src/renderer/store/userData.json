@@ -1,7 +1,1 @@
-[
-  {
-    "guid": "9bfba82e-7a01-433a-8954-7a439e4ec6ea",
-    "money": 123.3,
-    "region": "cy"
-  }
-]
+[{"guid":"4eed5a41-5c53-426d-ba17-738abd524252","money":10,"region":"cy","date":"2019-09-03T07:06:21.000Z","desc":"午饭:重庆小面"},{"guid":"98a7ddb3-d627-4789-a8da-db7fd6a9a95c","money":70,"region":"gw","date":"2019-09-03T07:06:51.000Z","desc":"优衣库T恤"},{"guid":"c27f8163-6510-4934-9c3b-01daa2f3deab","money":2,"region":"cy","date":"2019-09-03T07:09:50.000Z","desc":"123"},{"guid":"8bff7409-9193-4753-8e14-c536486d077a","money":10,"region":"cy","date":"2019-09-03T07:11:26.000Z","desc":"123"},{"guid":"0208c0d1-2ec7-40aa-ba8a-27dac5548f3a","money":20,"region":"gw","date":"2019-09-03T16:00:00.000Z","desc":"123"},{"guid":"c02cfbe5-f65c-4ebb-8b64-c6afd0d3eda1","money":20,"region":"jj","date":"2019-09-10T16:00:00.000Z","desc":"1233"}]

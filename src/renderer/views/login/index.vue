@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-      <h3 class="title">记账本</h3>
+      <h3 class="title"><svg-icon icon-class="pocket" style="font-size: 42px;"/>记账本</h3>
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
@@ -71,8 +71,10 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
-            this.loading = false
-            this.$router.push({ path: '/' })
+            this.$store.dispatch('init_Data').then(() => {
+              this.loading = false
+              this.$router.push({ path: '/' })
+            })
           }).catch(() => {
             this.loading = false
           })

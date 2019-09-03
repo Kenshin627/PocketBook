@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
-    <el-form ref="submitForm" :model="formmodel" label-width="50px" status-icon :rules="rules">
+    <el-form ref="submitForm" :model="formmodel" label-width="50px" status-icon :rules="rules" size='mini'>
       <el-form-item label="金额" required>
-        <el-input placeholder="请输入消费金额" v-model="formmodel.money" size="small" type="number">
+        <el-input placeholder="请输入消费金额" v-model.number="formmodel.money" size="small" type="number">
           <template slot="append">
             <svg-icon icon-class="money_2" class-name="card-panel-icon" />
           </template>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { readFileByNode, MakeGUID } from '@/utils/util'
+import { readFileByNode, writeFileByNode, MakeGUID } from '@/utils/util'
 
 export default {
   data() {
@@ -61,18 +61,30 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$refs['submitForm'].validate((valid) => {
+      this.$refs.submitForm.validate((valid) => {
         if (valid) {
           readFileByNode(this.setData)
           if (this.jsonData !== 'ERR') {
-            console.log(JSON.parse(this.jsonData))
+            const jsonObj = JSON.parse(this.jsonData)
             const guid = MakeGUID()
-            console.log(guid)
+            const newData = {}
+            newData.guid = guid
+            newData.money = this.formmodel.money
+            newData.region = this.formmodel.region
+            newData.date = this.formmodel.date
+            newData.desc = this.formmodel.desc
+            jsonObj.push(newData)
+            const newJson = JSON.stringify(jsonObj)
+            console.log(newJson)
+            writeFileByNode(newJson, this.notice)
+            this.$store.dispatch('init_Data')
           } else {
             this.$notify({
               title: 'warning',
               message: '数据读取出错啦!',
-              type: 'warning'
+              type: 'warning',
+              duration: 1500,
+              position: 'bottom-right'
             })
           }
         } else {
@@ -81,10 +93,28 @@ export default {
       })
     },
     resetForm() {
-      this.$refs['submitForm'].resetFields()
+      this.$refs.submitForm.resetFields()
     },
     setData(param) {
       this.jsonData = param
+    },
+    notice(message) {
+      let messageNotice = ''
+      let typeNotice = 'success'
+      if (message === 1) {
+        messageNotice = '记录成功'
+        this.resetForm()
+      } else {
+        messageNotice = '更新失败!'
+        typeNotice = 'warning'
+      }
+      this.$notify({
+        title: '信息',
+        message: messageNotice,
+        type: typeNotice,
+        duration: 1500,
+        position: 'bottom-right'
+      })
     }
   }
 }

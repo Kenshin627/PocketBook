@@ -5,9 +5,9 @@
       :show-timeout="200"
       :default-active="$route.path"
       :collapse="isCollapse"
-      background-color="#4d75a7"
+      background-color="#3b3737"
       text-color="#fff"
-      active-text-color="#fff"
+      active-text-color="#daa327"
     >
       <sidebar-item :routes="routes"></sidebar-item>
     </el-menu>

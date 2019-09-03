@@ -60,14 +60,19 @@ export default {
       this.chart = echarts.init(this.$el, 'macarons')
       this.setOptions(this.chartData)
     },
-    setOptions({ expectedData } = {}) {
+    setOptions({ seriesData, xData, lineColor } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          boundaryGap: false,
+          data: xData,
+          boundaryGap: true,
           axisTick: {
             show: false
-          }
+          },
+          nameTextStyle: {
+            fontSize: 18,
+            color: lineColor
+          },
+          nameRotate: -20
         },
         grid: {
           left: 10,
@@ -94,18 +99,19 @@ export default {
         series: [{
           name: '消费记录', itemStyle: {
             normal: {
-              color: '#1a4477',
+              color: lineColor,
               lineStyle: {
-                color: '#1a4477',
+                color: lineColor,
                 width: 2
               }
             }
           },
           smooth: true,
           type: 'line',
-          data: expectedData,
+          data: seriesData,
           animationDuration: 2800,
           animationEasing: 'cubicInOut'
+          // animationDelayUpdate: 3800
         }]
       })
     }
