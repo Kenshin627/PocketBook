@@ -1,14 +1,14 @@
 <template>
   <div class="app-container">
     <el-form ref="submitForm" :model="formmodel" label-width="50px" status-icon :rules="rules" size='mini'>
-      <el-form-item label="金额" required>
+      <el-form-item label="金额" required prop="money">
         <el-input placeholder="请输入消费金额" v-model.number="formmodel.money" size="small" type="number">
           <template slot="append">
             <svg-icon icon-class="money_2" class-name="card-panel-icon" />
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item label="类别" required>
+      <el-form-item label="类别" required prop="region">
         <el-select v-model="formmodel.region" placeholder="选择一个类别" size="small" filterable>
           <el-option label="餐饮" value="cy"></el-option>
           <el-option label="购物" value="gw"></el-option>
@@ -21,19 +21,19 @@
           <el-option label="水电" value="sd"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="时间" required>
+      <el-form-item label="时间" required prop="date">
         <el-col :span="7">
           <el-date-picker type="datetime" placeholder="选择时间" v-model="formmodel.date" style="width: 100%;" size="small"></el-date-picker>
         </el-col>
       </el-form-item>
-      <el-form-item label="描述">
+      <el-form-item label="明细" prop="desc">
         <el-input type="textarea" v-model="formmodel.desc" rows="4"></el-input>
       </el-form-item><el-form-item >
        
       </el-form-item>
       <el-form-item>
-        <el-button  type="primary" @click="onSubmit" size="small"><svg-icon icon-class="today" ></svg-icon>记一笔</el-button>
-        <el-button  type="info" @click="resetForm" size="small"><svg-icon icon-class="reset"></svg-icon> 重置</el-button>
+        <el-button  type="primary" @click.native.prevent="onSubmit" size="small" class="submitPocket"><svg-icon icon-class="today" ></svg-icon>记一笔</el-button>
+        <el-button  type="info" @click="resetForm" size="small" class="resetPocket"><svg-icon icon-class="reset"></svg-icon> 重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -63,30 +63,32 @@ export default {
     onSubmit() {
       this.$refs.submitForm.validate((valid) => {
         if (valid) {
-          readFileByNode(this.setData)
-          if (this.jsonData !== 'ERR') {
-            const jsonObj = JSON.parse(this.jsonData)
-            const guid = MakeGUID()
-            const newData = {}
-            newData.guid = guid
-            newData.money = this.formmodel.money
-            newData.region = this.formmodel.region
-            newData.date = this.formmodel.date
-            newData.desc = this.formmodel.desc
-            jsonObj.push(newData)
-            const newJson = JSON.stringify(jsonObj)
-            console.log(newJson)
-            writeFileByNode(newJson, this.notice)
-            this.$store.dispatch('init_Data')
-          } else {
-            this.$notify({
-              title: 'warning',
-              message: '数据读取出错啦!',
-              type: 'warning',
-              duration: 1500,
-              position: 'bottom-right'
-            })
-          }
+          readFileByNode((param) => {
+            this.jsonData = param
+            if (this.jsonData !== 'ERR') {
+              const jsonObj = JSON.parse(this.jsonData)
+              const guid = MakeGUID()
+              const newData = {}
+              newData.guid = guid
+              newData.money = this.formmodel.money
+              newData.region = this.formmodel.region
+              newData.date = this.formmodel.date
+              newData.desc = this.formmodel.desc
+              jsonObj.push(newData)
+              const newJson = JSON.stringify(jsonObj)
+              console.log(newJson)
+              writeFileByNode(newJson, this.notice)
+              this.$store.dispatch('init_Data')
+            } else {
+              this.$notify({
+                title: 'warning',
+                message: '数据读取出错啦!',
+                type: 'warning',
+                duration: 1500,
+                position: 'bottom-right'
+              })
+            }
+          })
         } else {
           return false
         }
@@ -94,9 +96,6 @@ export default {
     },
     resetForm() {
       this.$refs.submitForm.resetFields()
-    },
-    setData(param) {
-      this.jsonData = param
     },
     notice(message) {
       let messageNotice = ''
@@ -123,6 +122,17 @@ export default {
 <style scoped>
 .line{
   text-align: center;
+}
+
+.submitPocket {
+  background-color: rgb(56, 55, 52);
+  border: 1px solid rgb(56, 55, 52);
+}
+
+.resetPocket {
+  background-color: rgb(207, 206, 202);
+  border: 1px solid rgb(207, 206, 202);
+  color: rgb(56, 55, 52)
 }
 </style>
 

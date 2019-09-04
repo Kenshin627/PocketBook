@@ -108,12 +108,12 @@ export default {
 }
 </script>
 <style>
-  .warning-row {
+  el-table .warning-row {
     background: #717273;
     color: rgb(105, 103, 103);
   }
 
-  .success-row {
+  el-table .success-row {
     background: #2fa708;
   }
 

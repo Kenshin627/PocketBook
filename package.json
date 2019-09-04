@@ -19,7 +19,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "electron-vue-admin",
+    "productName": "记账本",
     "appId": "org.simulatedgreg.electron-vue",
     "directories": {
       "output": "build"
