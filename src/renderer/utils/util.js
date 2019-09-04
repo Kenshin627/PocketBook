@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 export function readFileByNode(callback) {
-  const filePath = path.join(__dirname, '../store/userData.json')
+  const filePath = path.join(global.__static, '/userData.json')
   fs.readFile(filePath, 'utf-8', function(err, data) {
     if (err) {
       callback('ERR')
@@ -12,7 +12,7 @@ export function readFileByNode(callback) {
 }
 
 export function writeFileByNode(data, callback) {
-  const filePath = path.join(__dirname, '../store/userData.json')
+  const filePath = path.join(global.__static, '/userData.json')
   fs.writeFile(filePath, data, 'utf-8', (err) => {
     if (err) {
       callback(0)

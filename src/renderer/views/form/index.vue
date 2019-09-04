@@ -78,7 +78,6 @@ export default {
               const newJson = JSON.stringify(jsonObj)
               console.log(newJson)
               writeFileByNode(newJson, this.notice)
-              this.$store.dispatch('init_Data')
             } else {
               this.$notify({
                 title: 'warning',
@@ -98,6 +97,7 @@ export default {
       this.$refs.submitForm.resetFields()
     },
     notice(message) {
+      this.$store.dispatch('init_Data')
       let messageNotice = ''
       let typeNotice = 'success'
       if (message === 1) {
