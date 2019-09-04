@@ -9,16 +9,16 @@
 
 ## 登录
 
-https://github.com/Kenshin627/imagesResitory/blob/master/images/login.jpg
+![Image text](https://github.com/Kenshin627/imagesResitory/blob/master/images/login.jpg)
 
 ## 主页
 
-https://github.com/Kenshin627/imagesResitory/blob/master/images/dashboard.jpg
+![Image text](https://github.com/Kenshin627/imagesResitory/blob/master/images/dashboard.jpg)
 
 ## 记账
 
-https://github.com/Kenshin627/imagesResitory/blob/master/images/jizhang.jpg
+![Image text](https://github.com/Kenshin627/imagesResitory/blob/master/images/jizhang.jpg)
 
 ## 历史账单
 
-https://github.com/Kenshin627/imagesResitory/blob/master/images/list.jpg
+![Image text](https://github.com/Kenshin627/imagesResitory/blob/master/images/list.jpg)
