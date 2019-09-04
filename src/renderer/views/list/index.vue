@@ -5,29 +5,33 @@
     v-loading.body="listLoading" 
     element-loading-text="Loading" 
     size='small' 
-    stripe fit highlight-current-row
+    stripe fit highlight-current-row border
     :row-class-name="tableRowClassName"
     :default-sort = "{prop: 'date', order: 'descending'}"
-    empty-text
-    :header-row-class-name="headerClass"
+    :header-cell-style="{
+    'background-color': '#42474D',
+    'color': '#fff',
+    'font-size': '14px',
+    'border-bottom': '1px solid #2C3947'
+}"
     >
       <el-table-column type="selection"></el-table-column>
-      <el-table-column align="center" label='类别' width="195">
+      <el-table-column align="center" label='类别' width="195" prop="region" sortable>
         <template slot-scope="scope">
           {{ regionType(scope.row.region) }}
         </template>
       </el-table-column>
-      <el-table-column label="金额" width="110" align="center" sortable>
+      <el-table-column label="金额" width="110" align="center" prop="money" sortable>
         <template slot-scope="scope">
           <span>{{scope.row.money}} ¥</span>
         </template>
       </el-table-column>
-      <el-table-column label="明细">
+      <el-table-column label="明细" prop="desc">
         <template slot-scope="scope">
           {{scope.row.desc}}
         </template>
       </el-table-column>
-      <el-table-column label="日期" width="140" align="center" sortable>
+      <el-table-column label="日期" width="140" align="center" prop="date" sortable>
         <template slot-scope="scope">
           {{ GetLocalDateTime(scope.row.date) }}
         </template>
@@ -95,22 +99,22 @@ export default {
     },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 0) {
-        return 'warning-row'
-      } else {
         return 'success-row'
+      } else {
+        return 'warning-row'
       }
     }
   }
 }
 </script>
 <style>
-  .el-table .warning-row {
+  .warning-row {
     background: #717273;
-    color: #fff;
+    color: rgb(105, 103, 103);
   }
 
-  .el-table .success-row {
-    background: #194203;
+  .success-row {
+    background: #2fa708;
   }
 
   .headerClass {
