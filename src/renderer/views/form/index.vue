@@ -63,30 +63,32 @@ export default {
     onSubmit() {
       this.$refs.submitForm.validate((valid) => {
         if (valid) {
-          readFileByNode((param) => {
+          readFileByNode.then(param => {
             this.jsonData = param
-            if (this.jsonData !== 'ERR') {
-              const jsonObj = JSON.parse(this.jsonData)
-              const guid = MakeGUID()
-              const newData = {}
-              newData.guid = guid
-              newData.money = this.formmodel.money
-              newData.region = this.formmodel.region
-              newData.date = this.formmodel.date
-              newData.desc = this.formmodel.desc
-              jsonObj.push(newData)
-              const newJson = JSON.stringify(jsonObj)
-              console.log(newJson)
-              writeFileByNode(newJson, this.notice)
-            } else {
-              this.$notify({
-                title: 'warning',
-                message: '数据读取出错啦!',
-                type: 'warning',
-                duration: 1500,
-                position: 'bottom-right'
-              })
-            }
+            const jsonObj = JSON.parse(this.jsonData).userData
+            const guid = MakeGUID()
+            const newData = {}
+            newData.guid = guid
+            newData.money = this.formmodel.money
+            newData.region = this.formmodel.region
+            newData.date = this.formmodel.date
+            newData.desc = this.formmodel.desc
+            jsonObj.push(newData)
+            const newJson = JSON.stringify(jsonObj)
+            console.log(newJson)
+            writeFileByNode(newJson).then(param => {
+              this.notice(1)
+            }).catch(() => {
+              this.notice(0)
+            })
+          }).catch(() => {
+            this.$notify({
+              title: 'warning',
+              message: '数据读取出错啦!',
+              type: 'warning',
+              duration: 1500,
+              position: 'bottom-right'
+            })
           })
         } else {
           return false

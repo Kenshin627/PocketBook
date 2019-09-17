@@ -1,24 +1,31 @@
+
 const fs = require('fs')
 const path = require('path')
-export function readFileByNode(callback) {
-  const filePath = path.join(global.__static, '/userData.json')
-  fs.readFile(filePath, 'utf-8', function(err, data) {
-    if (err) {
-      callback('ERR')
-    } else {
-      callback(data)
-    }
+// global.__static           /userData.json
+export function readFileByNode() {
+  const filePath = path.join(__dirname, '../store/userData.json')
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf-8', function(err, data) {
+      if (err) {
+        console.log(err)
+        reject('ERR')
+      } else {
+        resolve(data)
+      }
+    })
   })
 }
 
-export function writeFileByNode(data, callback) {
-  const filePath = path.join(global.__static, '/userData.json')
-  fs.writeFile(filePath, data, 'utf-8', (err) => {
-    if (err) {
-      callback(0)
-    } else {
-      callback(1)
-    }
+export function writeFileByNode(data) {
+  const filePath = path.join(__dirname, '../store/userData.json')
+  return new Promise((resolve, reject) => {
+    fs.writeFile(filePath, data, 'utf-8', (err) => {
+      if (err) {
+        reject()
+      } else {
+        resolve()
+      }
+    })
   })
 }
 
