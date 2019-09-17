@@ -1,5 +1,6 @@
 import { login, logout, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
+import { isToday, isMonth } from '@/utils/util'
 
 const user = {
   state: {
@@ -26,15 +27,40 @@ const user = {
 
   actions: {
     // 登录
-    Login({ commit }, userInfo) {
+    Login({ commit, state }, userInfo) {
+      console.log(2)
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
-          const data = response.data
-          setToken(data.token)
-          commit('SET_TOKEN', data.token)
+        login(username, userInfo.password).then((param) => {
+          console.log(3)
+          state.today = 0
+          state.month = 0
+          state.history = 0
+          state.historyData = JSON.parse(param).userData
+          state.historyData.map((item) => {
+            state.history += item.money
+          })
+          state.todayData = state.historyData.filter((item) => {
+            const itemDate = new Date(item.date)
+            if (isToday(itemDate)) {
+              return true
+            }
+          })
+          state.todayData.map((item) => {
+            state.today += item.money
+          })
+          state.monthData = state.historyData.filter((item) => {
+            const itemDate = new Date(item.date)
+            if (isMonth(itemDate)) {
+              return true
+            }
+          })
+          state.monthData.map((item) => {
+            state.month += item.money
+          })
           resolve()
         }).catch(error => {
+          console.log('error')
           reject(error)
         })
       })
