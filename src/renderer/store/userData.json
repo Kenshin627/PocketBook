@@ -1,5 +1,1 @@
-{
-    "loginName": "admin",
-    "password": "admin",
-    "userData": []
-}
+{"loginName":"admin","password":"admin","userData":[{"guid":"cdacf6ce-67ad-4a1f-ac43-e1776187f8e9","money":12,"region":"cy","date":"2019-09-17T15:07:36.000Z","desc":"123"},{"guid":"aac188dc-85a1-4ae9-bfc3-df43eb5074d0","money":23,"region":"jt","date":"2019-09-17T15:07:54.000Z","desc":"123"}]}

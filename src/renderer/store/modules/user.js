@@ -28,36 +28,37 @@ const user = {
   actions: {
     // 登录
     Login({ commit, state }, userInfo) {
-      console.log(2)
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then((param) => {
-          console.log(3)
-          state.today = 0
-          state.month = 0
-          state.history = 0
-          state.historyData = JSON.parse(param).userData
-          state.historyData.map((item) => {
-            state.history += item.money
+          debugger
+          state.token = 'temp'
+          state.pocket.today = 0
+          state.pocket.month = 0
+          state.pocket.history = 0
+          state.pocket.historyData = JSON.parse(param).userData
+          state.pocket.historyData.map((item) => {
+            state.pocket.history += item.money
           })
-          state.todayData = state.historyData.filter((item) => {
+          state.pocket.todayData = state.pocket.historyData.filter((item) => {
             const itemDate = new Date(item.date)
             if (isToday(itemDate)) {
               return true
             }
           })
-          state.todayData.map((item) => {
-            state.today += item.money
+          state.pocket.todayData.map((item) => {
+            state.pocket.today += item.money
           })
-          state.monthData = state.historyData.filter((item) => {
+          state.pocket.monthData = state.pocket.historyData.filter((item) => {
             const itemDate = new Date(item.date)
             if (isMonth(itemDate)) {
               return true
             }
           })
-          state.monthData.map((item) => {
-            state.month += item.money
+          state.pocket.monthData.map((item) => {
+            state.pocket.month += item.money
           })
+          debugger
           resolve()
         }).catch(error => {
           console.log('error')

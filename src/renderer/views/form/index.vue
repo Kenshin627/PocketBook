@@ -63,9 +63,10 @@ export default {
     onSubmit() {
       this.$refs.submitForm.validate((valid) => {
         if (valid) {
-          readFileByNode.then(param => {
+          readFileByNode().then((param) => {
             this.jsonData = param
-            const jsonObj = JSON.parse(this.jsonData).userData
+            const allData = JSON.parse(this.jsonData)
+            const jsonObj = allData.userData
             const guid = MakeGUID()
             const newData = {}
             newData.guid = guid
@@ -74,9 +75,9 @@ export default {
             newData.date = this.formmodel.date
             newData.desc = this.formmodel.desc
             jsonObj.push(newData)
-            const newJson = JSON.stringify(jsonObj)
+            const newJson = JSON.stringify(allData)
             console.log(newJson)
-            writeFileByNode(newJson).then(param => {
+            writeFileByNode(newJson).then((param) => {
               this.notice(1)
             }).catch(() => {
               this.notice(0)

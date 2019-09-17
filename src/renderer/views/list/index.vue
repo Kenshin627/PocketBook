@@ -57,19 +57,18 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      readFileByNode((data) => {
+      readFileByNode().then((data) => {
+        this.list = JSON.parse(data).userData
         this.listLoading = false
-        if (data !== 'ERR') {
-          this.list = JSON.parse(data)
-        } else {
-          this.$notify({
-            title: 'warning',
-            message: '数据读取出错啦!',
-            type: 'warning',
-            duration: 1500,
-            position: 'bottom-right'
-          })
-        }
+      }).catch(() => {
+        this.$notify({
+          title: 'warning',
+          message: '数据读取出错啦!',
+          type: 'warning',
+          duration: 1500,
+          position: 'bottom-right'
+        })
+        this.listLoading = false
       })
     },
     regionType(value) {
