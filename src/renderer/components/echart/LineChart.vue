@@ -98,7 +98,8 @@ export default {
           data: ['消费记录']
         },
         series: [{
-          name: '消费记录', itemStyle: {
+          name: '消费记录',
+          itemStyle: {
             normal: {
               color: lineColor,
               lineStyle: {
@@ -107,8 +108,18 @@ export default {
               }
             }
           },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              color: '#000',
+              fontSize: 12,
+              fontFamily: '微软雅黑'
+            }
+          },
+          barWidth: 40,
           smooth: true,
-          type: 'line',
+          type: 'bar',
           data: seriesData,
           animationDuration: 2800,
           animationEasing: 'cubicInOut'
