@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 // global.__static           /userData.json
 export function readFileByNode() {
-  const filePath = path.join(__dirname, '../store/userData.json')
+  const filePath = path.join(global.__static, '/userData.json')
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, 'utf-8', function(err, data) {
       if (err) {
@@ -17,7 +17,7 @@ export function readFileByNode() {
 }
 // ../store/userData.json
 export function writeFileByNode(data) {
-  const filePath = path.join(__dirname, '../store/userData.json')
+  const filePath = path.join(global.__static, '/userData.json')
   return new Promise((resolve, reject) => {
     fs.writeFile(filePath, data, 'utf-8', (err) => {
       if (err) {
