@@ -27,36 +27,36 @@ const user = {
 
   actions: {
     // 登录
-    Login({ commit, state }, userInfo) {
+    Login({ commit, state, rootState }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then((param) => {
           debugger
           state.token = 'temp'
-          state.pocket.today = 0
-          state.pocket.month = 0
-          state.pocket.history = 0
-          state.pocket.historyData = JSON.parse(param).userData
-          state.pocket.historyData.map((item) => {
-            state.pocket.history += item.money
+          rootState.pocket.today = 0
+          rootState.pocket.month = 0
+          rootState.pocket.history = 0
+          rootState.pocket.historyData = JSON.parse(param).userData
+          rootState.pocket.historyData.map((item) => {
+            rootState.pocket.history += item.money
           })
-          state.pocket.todayData = state.pocket.historyData.filter((item) => {
+          rootState.pocket.todayData = rootState.pocket.historyData.filter((item) => {
             const itemDate = new Date(item.date)
             if (isToday(itemDate)) {
               return true
             }
           })
-          state.pocket.todayData.map((item) => {
-            state.pocket.today += item.money
+          rootState.pocket.todayData.map((item) => {
+            rootState.pocket.today += item.money
           })
-          state.pocket.monthData = state.pocket.historyData.filter((item) => {
+          rootState.pocket.monthData = rootState.pocket.historyData.filter((item) => {
             const itemDate = new Date(item.date)
             if (isMonth(itemDate)) {
               return true
             }
           })
-          state.pocket.monthData.map((item) => {
-            state.pocket.month += item.money
+          rootState.pocket.monthData.map((item) => {
+            rootState.pocket.month += item.money
           })
           debugger
           resolve()
