@@ -15,7 +15,7 @@ export function readFileByNode() {
     })
   })
 }
-
+// ../store/userData.json
 export function writeFileByNode(data) {
   const filePath = path.join(__dirname, '../store/userData.json')
   return new Promise((resolve, reject) => {

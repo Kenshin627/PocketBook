@@ -19,16 +19,27 @@ function createWindow() {
    */
   Menu.setApplicationMenu(null)
   mainWindow = new BrowserWindow({
-    height: 670,
-    useContentSize: true,
-    width: 1180
+    height: 700,
+    useContentSize: false,
+    width: 1180,
+    resizable: false,
+    minimizable: false,
+    maximizable: false,
+    closable: true
   })
   mainWindow.loadURL(winURL)
-
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  mainWindow.on('will-resize', (event) => {
+    event.preventDefault()
+  })
 }
+
+app.on('will-resize', (event) => {
+  event.preventDefault()
+})
 
 app.on('ready', createWindow)
 

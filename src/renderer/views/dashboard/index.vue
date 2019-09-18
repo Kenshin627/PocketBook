@@ -277,7 +277,7 @@ export default {
 }
 .chart{
   width: 90%;
-  height: 280px;
+  height: 270px;
   border:1px solid #ccc;
   box-shadow: 4px 4px 12px 0px #9c9797;
 }
