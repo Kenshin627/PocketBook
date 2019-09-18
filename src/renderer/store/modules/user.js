@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/login'
+import { login, getInfo } from '@/api/login'
 import { getToken, removeToken } from '@/utils/auth'
 import { isToday, isMonth } from '@/utils/util'
 
@@ -31,7 +31,6 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then((param) => {
-          debugger
           state.token = 'temp'
           rootState.pocket.today = 0
           rootState.pocket.month = 0
@@ -58,7 +57,6 @@ const user = {
           rootState.pocket.monthData.map((item) => {
             rootState.pocket.month += item.money
           })
-          debugger
           resolve()
         }).catch(error => {
           console.log('error')
@@ -89,14 +87,7 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          removeToken()
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        resolve()
       })
     },
 

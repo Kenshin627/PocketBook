@@ -1,4 +1,4 @@
-import { readFileByNode } from '@/utils/util'
+import { readFileByNode, isMonth, isToday } from '@/utils/util'
 
 const pocket = {
   state: {
@@ -12,12 +12,40 @@ const pocket = {
   },
   mutations: {
     GET_POCKET_LIST: (state) => {
-      return readFileByNode()
+      readFileByNode().then((data) => {
+        state.today = 0
+        state.month = 0
+        state.history = 0
+        state.historyData = JSON.parse(data).userData
+        state.historyData.map((item) => {
+          state.history += item.money
+        })
+        state.todayData = state.historyData.filter((item) => {
+          const itemDate = new Date(item.date)
+          if (isToday(itemDate)) {
+            return true
+          }
+        })
+        state.todayData.map((item) => {
+          state.today += item.money
+        })
+        state.monthData = state.historyData.filter((item) => {
+          const itemDate = new Date(item.date)
+          if (isMonth(itemDate)) {
+            return true
+          }
+        })
+        state.monthData.map((item) => {
+          state.month += item.money
+        })
+      }).catch(() => {
+
+      })
     }
   },
   actions: {
     init_Data({ commit }) {
-      return commit('GET_POCKET_LIST')
+      commit('GET_POCKET_LIST')
     }
   }
 }

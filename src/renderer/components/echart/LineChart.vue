@@ -111,8 +111,8 @@ export default {
           label: {
             normal: {
               show: true,
-              position: 'top',
-              color: '#000',
+              position: 'insideTop',
+              color: '#fff',
               fontSize: 12,
               fontFamily: '微软雅黑'
             }
